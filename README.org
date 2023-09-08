@@ -1,0 +1,55 @@
+* The Challenge
+
+- "Build a system to capture purchase data from a caller"
+- "Store the data in a Database"
+- "If there is a duplicate user, update their data instead of adding a new record"
+
+** Examples
+- Tim purchased a book
+- Sue purchased a T-shirt
+
+** How to?
+- Class-Library?
+- API?
+- up to you
+- What kind of Database?
+  - Mongo, Cosmos?
+  - MySQL, Postgres?
+
+** Attention to
+- possible errors (test in final product)
+  - throw curve balls
+- Logging?
+- Dependency Injection?
+
+* MVP
+
+- [ ] I have an API that is connected to a SQL database
+- [ ] I can make an Http Call to update the Database
+- [ ] I have a logging system in place
+- [ ] I have validation in place
+- [ ] I have have written unit tests for my code
+- [ ] I can deploy it with docker
+- [ ] I can call the service in a browser, the site prompts me for the purchase
+  that I want to do
+
+* Stack
+- Flask with SQLAlchemy
+- sqlite as local database
+- PostgreSQL as production DB
+- docker
+- JavaScript for BrowserInteraction
+
+* Steps
+1. [ ] Setup Flask App and Database
+   - [ ] Setup Project Structure
+   - [ ] Setup Database locally
+   - [ ] Setup Tests already (do it with TTD)
+2. [ ] Make Database Schema
+   - [ ] Go to your DataEngineeringCourse and have a reminder of how to do that
+3. [ ] Test API completely
+
+* Goals of this project
+- integrate everything that I learned
+- Also using Git Forge for issues and Planning of the project and maybe some features
+- use Magit correctly and make sensible Git commits
