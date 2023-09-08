@@ -43,6 +43,7 @@
 * Steps
 1. [ ] Setup Flask App and Database
    - [X] Setup Project Structure
+   - [X] Create the app
    - [ ] Setup Database locally
    - [ ] Setup Tests already (do it with TTD)
 2. [ ] Make Database Schema
