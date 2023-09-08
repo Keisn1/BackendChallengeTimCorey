@@ -42,12 +42,19 @@
 
 * Steps
 1. [ ] Setup Flask App and Database
-   - [ ] Setup Project Structure
+   - [X] Setup Project Structure
    - [ ] Setup Database locally
    - [ ] Setup Tests already (do it with TTD)
 2. [ ] Make Database Schema
    - [ ] Go to your DataEngineeringCourse and have a reminder of how to do that
 3. [ ] Test API completely
+
+* Questions to answer all along the project
+
+** Flask App configuration
+1. what is app.instance_path?
+2. What is instance_relative_config?
+3. What is config.from_mapping ?
 
 * Goals of this project
 - integrate everything that I learned
