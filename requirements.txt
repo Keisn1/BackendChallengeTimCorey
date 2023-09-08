@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+Black
+pytest
+Flake8
