@@ -42,12 +42,73 @@
 
 * Steps
 1. [ ] Setup Flask App and Database
-   - [ ] Setup Project Structure
+   - [X] Setup Project Structure
+   - [X] Create the app
    - [ ] Setup Database locally
    - [ ] Setup Tests already (do it with TTD)
 2. [ ] Make Database Schema
    - [ ] Go to your DataEngineeringCourse and have a reminder of how to do that
 3. [ ] Test API completely
+
+* Notes
+** Questions to answer all along the project
+*** Flask App configuration
+1. what is app.instance_path?
+2. What is instance_relative_config?
+3. What is config.from_mapping ?
+
+** Notes
+
+*** Application Setup
+- create_app is the application factory function. You’ll add to it later in the tutorial, but it already does a lot.
+
+- app = Flask(__name__, instance_relative_config=True) creates the Flask instance.
+
+- __name__ is the name of the current Python module. The app needs to know where it’s located to set up some paths, and __name__ is a convenient way to tell it that.
+
+- instance_relative_config=True tells the app that configuration files are
+  relative to the instance folder.
+  - The instance folder is located *outside the flaskr package* and *can hold local data that shouldn’t be committed to version control*, such as *configuration secrets* and the *database file.*
+
+- app.config.from_mapping() sets some default configuration that the app will use:
+
+  - SECRET_KEY is used by Flask and extensions to keep data safe. It’s set to 'dev' to provide a convenient value during development, but it should be overridden with a random value when deploying.
+
+  - DATABASE is the path where the SQLite database file will be saved. It’s under app.instance_path, which is the path that Flask has chosen for the instance folder. You’ll learn more about the database in the next section.
+
+- app.config.from_pyfile() overrides the default configuration with values taken from the config.py file in the instance folder if it exists. For example, when deploying, this can be used to set a real SECRET_KEY.
+
+- test_config can also be passed to the factory, and will be used instead of the instance configuration. This is so the tests you’ll write later in the tutorial can be configured independently of any development values you have configured.
+
+- os.makedirs() ensures that app.instance_path exists. Flask doesn’t create the instance folder automatically, but it needs to be created because your project will create the SQLite database file there.
+
+- @app.route() creates a simple route so you can see the application working before getting into the rest of the tutorial. It creates a connection between the URL /hello and a function that returns a response, the string 'Hello, World!' in this case.
+
+*** Define and Access the Database
+
+**** Connect the Database
+- g is a special object that is unique for each request.
+  - It is used to store data that might be accessed by multiple functions during
+    the request.
+  - The connection is stored and reused instead of creating a new connection if get_db is called a second time in the same request.
+
+- current_app is another special object that points to the Flask application
+  handling the request.
+  - Since you used an application factory, there is no application object when
+    writing the rest of your code.
+  - get_db will be called when the application has been created and is handling a request, so current_app can be used.
+
+- sqlite3.connect() establishes a connection to the file pointed at by the
+  DATABASE configuration key.
+  - This file doesn’t have to exist yet, and won’t until you initialize the database later.
+
+- sqlite3.Row tells the connection to return rows that behave like dicts. This allows accessing the columns by name.
+
+- close_db checks if a connection was created by checking if g.db was set. If
+  the connection exists, it is closed.
+  - Further down you will tell your application about the close_db function in the application factory so that it is called after each request.
+
+
 
 * Goals of this project
 - integrate everything that I learned
