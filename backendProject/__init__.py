@@ -24,11 +24,17 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    @app.route("/hello")
-    def hello():
-        return "Hello World\n"
-
     from .db import init_app
 
     init_app(app)
+
+    from .views import auth
+
+    app.register_blueprint(auth.bp)
+
+    @app.route("/hello")
+    @app.route("/")
+    def hello():
+        return "Hello World\n"
+
     return app
