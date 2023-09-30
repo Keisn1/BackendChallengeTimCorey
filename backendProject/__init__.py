@@ -1,11 +1,14 @@
 import os
 
 from flask import Flask
+from .db import init_app
+from .views import auth
 
 
 def create_app(test_config=None):
     # create and configure the App
     app = Flask(__name__, instance_relative_config=True)
+    print(__name__)
     app.config.from_mapping(
         SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "backendProject.sqlite"),
@@ -24,11 +27,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from .db import init_app
-
     init_app(app)
-
-    from .views import auth
 
     app.register_blueprint(auth.bp)
 

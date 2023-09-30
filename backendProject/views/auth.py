@@ -26,15 +26,15 @@ bp = Blueprint("auth", __name__, url_prefix="/auth")
 @bp.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        username = request.form["username"]
-        user_email = request.form["user_email"]
+        client_name = request.form["client_name"]
+        client_email = request.form["client_email"]
         password = request.form["password"]
         db = get_db()
         error = None
 
-        if not username:
-            error = "Username is required"
-        if not user_email:
+        if not client_name:
+            error = "Client_name is required"
+        if not client_email:
             error = "Email is required"
         elif not password:
             error = "Password is required"
@@ -42,12 +42,12 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO purchase (username, user_email, password) VALUES (?, ?)",
-                    (username, user_email, generate_password_hash(password)),
+                    "INSERT INTO clients (client_name, client_email, password) VALUES (?, ?, ?)",
+                    (client_name, client_email, generate_password_hash(password)),
                 )
                 db.commit()
             except db.IntegrityError:
-                error = f"User with {user_email} is already registered"
+                error = f"Client with {client_email} is already registered"
             else:
                 return redirect(
                     url_for("auth.login")
@@ -61,23 +61,23 @@ def register():
 @bp.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
-        user_email = request.form["user_email"]
+        client_email = request.form["client_email"]
         password = request.form["password"]
         db = get_db()
         error = None
-        user = db.execute(
-            "SELECT username, user_email, password FROM user WHERE user_email = ?",
-            (user_email),
+        client = db.execute(
+            "SELECT client_id, client_name, client_email, password FROM clients WHERE client_email = (?)",
+            (client_email,),
         ).fetchone()
 
-        if user == None:
-            error = "Incorrect user_email"
-        elif not check_password_hash(password, user["password"]):
-            erro = "Incorred password"
+        if client == None:
+            error = "Incorrect client_email"
+        elif not check_password_hash(client["password"], password):
+            error = "Incorred password"
 
         if error is None:
             session.clear()
-            session["user_id"] = user["id"]
+            session["client_id"] = client["client_id"]
             return redirect(url_for("index"))
 
         flash(error)
@@ -86,17 +86,17 @@ def login():
 
 
 @bp.before_app_request
-def load_logged_in_user():
+def load_logged_in_client():
     # bp.before_app_request registers a function that is called before every
     # viewfunction no matter the URL is
-    user_id = session.get("user_id")
+    client_id = session.get("client_id")
 
-    if user_id is None:
-        g.user = None
+    if client_id is None:
+        g.client = None
     else:
-        g.user = get_db.execute(
-            "SELECT user_id, username, user_email FROM user WHERE user_id = ?",
-            (user_id),
+        g.client = get_db.execute(
+            "SELECT client_id, client_name, client_email FROM clients WHERE client_id = ?",
+            (client_id),
         )
 
 
@@ -109,7 +109,7 @@ def logout():
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.user is None:
+        if g.client is None:
             return redirect(url_for("auth.login"))
 
         return view(**kwargs)

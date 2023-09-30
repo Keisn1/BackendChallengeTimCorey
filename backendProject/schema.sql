@@ -1,10 +1,10 @@
 DROP TABLE IF EXISTS purchase;
-DROP TABLE IF EXISTS buyer;
+DROP TABLE IF EXISTS clients;
 DROP TABLE IF EXISTS product;
 
 CREATE TABLE purchase (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
-       user_id INTEGER UNIQUE NOT NULL,
+       client_id INTEGER UNIQUE NOT NULL,
        product_id INTEGER NOT NULL,
        datetime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
@@ -15,12 +15,12 @@ CREATE TABLE purchase (
    -- SELECT strftime("%d", date('now'));
    -- VALUES(datetime('now'),datetime('now', 'localtime'));
 
-CREATE TABLE user (
-       user_id INTEGER NOT NULL,
-       username TEXT NOT NULL,
-       user_email TEXT UNIQUE NOT NULL,
+CREATE TABLE clients (
+       client_id INTEGER PRIMARY KEY AUTOINCREMENT,
+       client_name TEXT NOT NULL,
+       client_email TEXT UNIQUE NOT NULL,
        password TEXT UNIQUE NOT NULL,
-       FOREIGN KEY (user_id) REFERENCES purchase (user_id)
+       FOREIGN KEY (client_id) REFERENCES purchase (client_id)
 );
 
 CREATE TABLE product (
