@@ -2,7 +2,7 @@ import os
 
 from flask import Flask
 from .db import init_app
-from .views import auth, blog
+from .views import auth, blog, buy
 
 
 def create_app(test_config=None):
@@ -30,6 +30,7 @@ def create_app(test_config=None):
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
+    app.register_blueprint(buy.bp)
     app.add_url_rule("/", endpoint="index")
 
     @app.route("/hello")

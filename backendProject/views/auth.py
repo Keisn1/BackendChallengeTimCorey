@@ -78,7 +78,7 @@ def login():
         if error is None:
             session.clear()
             session["client_id"] = client["client_id"]
-            return redirect(url_for("index"))
+            return redirect(url_for("blog.index"))
 
         flash(error)
 
@@ -105,7 +105,7 @@ def load_logged_in_client():
 @bp.route("logout")
 def logout():
     session.clear()
-    return redirect(url_for("index"))
+    return redirect(url_for("blog.index"))
 
 
 def login_required(view):

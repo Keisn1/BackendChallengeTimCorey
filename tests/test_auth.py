@@ -50,7 +50,7 @@ def test_register_validate_input(client, client_name, client_email, password, me
 def test_login(client, auth):
     assert client.get("auth/login").status_code == 200
     response = auth.login()
-    assert response.headers["Location"] == "/"
+    assert response.headers["Location"] == "/blog/"
     with client:
         client.get("/")
         assert session["client_id"] == 1

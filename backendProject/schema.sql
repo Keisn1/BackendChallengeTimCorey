@@ -7,7 +7,7 @@ CREATE TABLE purchase (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
        client_id INTEGER UNIQUE NOT NULL,
        product_id INTEGER NOT NULL,
-       datetime TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+       created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- Examples
    --SELECT datetime('now', 'localtime')
@@ -44,3 +44,9 @@ INSERT INTO product (product_name) VALUES ('t-shirt');
 INSERT INTO product (product_name) VALUES ('polo shirt');
 INSERT INTO product (product_name) VALUES ('Sweat shirt');
 INSERT INTO product (product_name) VALUES ('Long shirt');
+INSERT INTO product (product_name) VALUES ('Short shirt');
+INSERT INTO product (product_name) VALUES ('Large shirt');
+INSERT INTO product (product_name) VALUES ('XL shirt');
+INSERT INTO product (product_name) VALUES ('Small shirt');
+INSERT INTO product (product_name) VALUES ('Double shirt');
+INSERT INTO product (product_name) VALUES ('shirt shirt');
