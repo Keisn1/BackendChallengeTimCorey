@@ -1,0 +1,18 @@
+[project]
+name = "backendProject"
+version = "0.0.1"
+description = "Backend Project inspired by Tim Corey"
+dependencies = [
+             "flask"
+             ]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["backendProject"]

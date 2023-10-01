@@ -92,12 +92,14 @@ def load_logged_in_client():
     client_id = session.get("client_id")
 
     if client_id is None:
-        g.client = None
+        g.user = None
     else:
-        g.client = get_db.execute(
-            "SELECT client_id, client_name, client_email FROM clients WHERE client_id = ?",
-            (client_id),
-        )
+        g.user = (
+            get_db().execute(
+                "SELECT client_id, client_name, client_email FROM clients WHERE client_id = ?",
+                (client_id,),
+            )
+        ).fetchone()
 
 
 @bp.route("logout")
@@ -109,7 +111,7 @@ def logout():
 def login_required(view):
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        if g.client is None:
+        if g.user is None:
             return redirect(url_for("auth.login"))
 
         return view(**kwargs)

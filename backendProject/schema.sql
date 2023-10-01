@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS purchase;
 DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS product;
 
 CREATE TABLE purchase (
@@ -29,3 +30,11 @@ CREATE TABLE product (
        FOREIGN KEY (product_id) REFERENCES purchase (product_id)
 );
 
+CREATE TABLE post (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  client_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  title TEXT NOT NULL,
+  body TEXT NOT NULL,
+  FOREIGN KEY (client_id) REFERENCES clients (client_id)
+);
