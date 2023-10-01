@@ -24,12 +24,6 @@ CREATE TABLE clients (
        FOREIGN KEY (client_id) REFERENCES purchase (client_id)
 );
 
-CREATE TABLE product (
-       product_id INTEGER NOT NULL,
-       product_name TEXT NOT NULL,
-       FOREIGN KEY (product_id) REFERENCES purchase (product_id)
-);
-
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   client_id INTEGER NOT NULL,
@@ -38,3 +32,15 @@ CREATE TABLE post (
   body TEXT NOT NULL,
   FOREIGN KEY (client_id) REFERENCES clients (client_id)
 );
+
+CREATE TABLE product (
+       product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+       product_name TEXT NOT NULL,
+       FOREIGN KEY (product_id) REFERENCES purchase (product_id)
+);
+
+
+INSERT INTO product (product_name) VALUES ('t-shirt');
+INSERT INTO product (product_name) VALUES ('polo shirt');
+INSERT INTO product (product_name) VALUES ('Sweat shirt');
+INSERT INTO product (product_name) VALUES ('Long shirt');
