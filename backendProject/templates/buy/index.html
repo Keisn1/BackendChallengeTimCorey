@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Bought Products{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% for purchase in purchases %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>what i bought was {{ purchase['product_name'] }}</h1>
+          <div class="about">bought by {{ purchase['client_name'] }} on {{ purchase['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+      </header>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
