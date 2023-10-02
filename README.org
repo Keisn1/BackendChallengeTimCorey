@@ -24,14 +24,13 @@
 
 * MVP
 
-- [ ] I have an API that is connected to a SQL database
-- [ ] I can make an Http Call to update the Database
+- [X] I have an API that is connected to a SQL database
+- [X] I can make an Http Call to update the Database
+- [X] I can call the service in a browser, the site prompts me for the purchase
 - [ ] I have a logging system in place
 - [ ] I have validation in place
 - [ ] I have have written unit tests for my code
 - [ ] I can deploy it with docker
-- [ ] I can call the service in a browser, the site prompts me for the purchase
-  that I want to do
 
 * Stack
 - Flask with SQLAlchemy

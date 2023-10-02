@@ -7,8 +7,10 @@ INSERT INTO post (title, body, client_id, created)
 VALUES
   ('test title', 'test' || x'0a' || 'body', 1, '2018-01-01 00:00:00');
 
-INSERT INTO product (product_name) VALUES ('test product');
+INSERT INTO product (product_name, description)
+VALUES ('test product', 'test' || x'0a' || 'description');
+INSERT INTO product (product_name, description)
+VALUES ('test product2', 'test2' || x'0a' || 'description2');
 
-INSERT INTO purchase (product_id, client_id, created)
-VALUES ('1', '1' , '2018-01-01 00:00:00');
-
+INSERT INTO purchase (product_id, client_id, amount, created)
+VALUES ('1', '1', 13, '2018-01-01 00:00:00');

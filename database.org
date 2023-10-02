@@ -1,0 +1,20 @@
+#+title: Database
+
+#+begin_src sqlite :db instance/backendProject.sqlite :colnames yes
+.tables
+#+end_src
+
+#+RESULTS:
+| clients   greeting  post      product   purchase |
+|--------------------------------------------------|
+
+#+begin_src sqlite :db instance/backendProject.sqlite :colnames yes
+create table if not exists  greeting(one varchar(10), two varchar(10));
+insert into greeting values( 'Hello', 'world!');
+select * from greeting;
+#+end_src
+
+#+RESULTS:
+| one   | two    |
+|-------+--------|
+| Hello | world! |

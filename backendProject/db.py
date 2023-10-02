@@ -6,7 +6,6 @@ from flask import current_app, g
 
 def get_db():
     if "db" not in g:
-        print(current_app.config["DATABASE"])
         g.db = sqlite3.connect(
             current_app.config["DATABASE"], detect_types=sqlite3.PARSE_DECLTYPES
         )
@@ -29,10 +28,18 @@ def init_db():
         db.executescript(f.read().decode("utf-8"))
 
 
+def insert_data_db():
+    db = get_db()
+
+    with current_app.open_resource("insert_data.sql") as f:
+        db.executescript(f.read().decode("utf-8"))
+
+
 @click.command("init-db")
 def init_db_command():
     """Clear the existing data and create new tables"""
     init_db()
+    insert_data_db()
     click.echo("Initialized Database")
 
 

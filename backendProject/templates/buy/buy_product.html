@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}You want to buy something?{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    {% for product in products %}
+    <p>{{ product['product_name'] }}</p>
+    <label id="number-label"><input type="number" class="block" id="number" name="{{ product['product_id'] }}" required value='0' min=0 max=10 placeholder=" Amount "/></label>
+    {% endfor %}
+    <input type="submit" value="Buy">
+  </form>
+{% endblock %}

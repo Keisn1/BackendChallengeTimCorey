@@ -5,8 +5,9 @@ DROP TABLE IF EXISTS product;
 
 CREATE TABLE purchase (
        id INTEGER PRIMARY KEY AUTOINCREMENT,
-       client_id INTEGER UNIQUE NOT NULL,
+       client_id INTEGER NOT NULL,
        product_id INTEGER NOT NULL,
+       amount INTEGER NOT NULL,
        created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 -- Examples
@@ -36,17 +37,7 @@ CREATE TABLE post (
 CREATE TABLE product (
        product_id INTEGER PRIMARY KEY AUTOINCREMENT,
        product_name TEXT NOT NULL,
+       description TEXT NOT NULL,
        FOREIGN KEY (product_id) REFERENCES purchase (product_id)
 );
 
-
-INSERT INTO product (product_name) VALUES ('t-shirt');
-INSERT INTO product (product_name) VALUES ('polo shirt');
-INSERT INTO product (product_name) VALUES ('Sweat shirt');
-INSERT INTO product (product_name) VALUES ('Long shirt');
-INSERT INTO product (product_name) VALUES ('Short shirt');
-INSERT INTO product (product_name) VALUES ('Large shirt');
-INSERT INTO product (product_name) VALUES ('XL shirt');
-INSERT INTO product (product_name) VALUES ('Small shirt');
-INSERT INTO product (product_name) VALUES ('Double shirt');
-INSERT INTO product (product_name) VALUES ('shirt shirt');

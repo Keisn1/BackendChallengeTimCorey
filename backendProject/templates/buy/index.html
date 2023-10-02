@@ -1,21 +1,40 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Bought Products{% endblock %}</h1>
+<h1>{% block title %}Bought Products{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  {% for purchase in purchases %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>what i bought was {{ purchase['product_name'] }}</h1>
-          <div class="about">bought by {{ purchase['client_name'] }} on {{ purchase['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-      </header>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+{% for purchase in purchases %}
+<article class="post">
+  <header>
+    <div>
+      <h1>{{ purchase['product_name'] }}</h1>
+      <div class="about">was bought on {{ purchase['created'].strftime('%Y-%m-%d') }}</div>
+    </div>
+  </header>
+  <p class="body">{{ purchase['description'] }}</p>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endfor %}
+<h1>You purchased</h1>
+{% for purchase in purchases %}
+{% if g.user['client_id'] == purchase['client_id'] %}
+<article class="post">
+  <header>
+    <div>
+      <p>{{ purchase['amount']}} of {{ purchase['product_name'] }}</p>
+      <div class="about">Bought on {{ purchase['created'].strftime('%Y-%m-%d') }}</div>
+    </div>
+  </header>
+  <p class="body">{{ purchase['description'] }}</p>
+  <label><a class="action" href="{{ url_for('buy.return_product', id=purchase['product_id']) }}"></a>Return {{ purchase['product_name'] }}</label>
+</article>
+{% if not loop.last %}
+<hr>
+{% endif %}
+{% endif%}
+{% endfor %}
 {% endblock %}
