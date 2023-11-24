@@ -26,7 +26,7 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    init_app(app)
+    init_app(app)  # Registration of app.cli.command
 
     app.register_blueprint(auth.bp)
     app.register_blueprint(blog.bp)
